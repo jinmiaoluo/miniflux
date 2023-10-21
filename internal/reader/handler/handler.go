@@ -211,7 +211,7 @@ func RefreshFeed(store *storage.Storage, userID, feedID int64, forceRefresh bool
 		originalFeed.Entries = updatedFeed.Entries
 		processor.ProcessFeedEntries(store, originalFeed, user, forceRefresh)
 
-		// We don't update existing entries when the crawler is enabled (we crawl only inexisting entries). Unless it is forced to refresh
+		// We don't update existing entries when the crawler is enabled (we crawl only nonexistent entries). Unless it is forced to refresh
 		updateExistingEntries := forceRefresh || !originalFeed.Crawler
 		newEntries, storeErr := store.RefreshFeedEntries(originalFeed.UserID, originalFeed.ID, originalFeed.Entries, updateExistingEntries)
 		if storeErr != nil {
